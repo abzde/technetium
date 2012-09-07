@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/static/main.css" type="text/css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <div id="navi" class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <ul class="nav">
+          <li><a href="/">home</a></li>
+          <li><a href="/invoice/">invoice</a></li>
+          {% if user.is_authenticated %}<li><a href="/logout/">logout</a></li>{% endif %}
+        </ul>
+        <a class="brand" href="/">technetium</a>
+        {% if not user.is_authenticated %}<form class="form-horizontal" action="/login/" method="post">
+          {% csrf_token %}
+          <input type="text" placeholder="username" name="username" />
+          <input type="password" placeholder="password" name="password" />
+          <button class="btn" type="submit">login</button>
+        </form>{% endif %}
+      </div>
+    </div>
+    <div id="boxxy" class="container">
+      {% block content %}{% endblock %}
+    </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,8 @@
+* { margin:0; padding:0; }
+#container { margin:50px auto; width:900px; }
+#info { float:left; font-weight:bold; }
+#billto { float:right; }
+#bill { clear:both; width:100%; text-align:center; }
+#bill thead { font-weight:bold; }
+#bill .amount { text-align:right; }
+#bill .total { text-align:right; font-weight:bold; }

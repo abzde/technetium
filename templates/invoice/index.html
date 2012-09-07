@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}invoices{% endblock %}
+{% block content %}
+<table class="span12 table-striped">
+  <thead>
+  </thead>
+  <tbody>
+    {% for invoice in invoices %}
+    <tr>
+      <td>{{ invoice.bill_to|linebreaks }}</td>
+      <td>{{ invoice.date }}</td>
+      <td>{{ invoice.total }}</td>
+      <td><a href="{% url invoice.views.generate invoice.pk invoice.secret_key %}">View</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
+

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Invoice - {{ invoice.date|date:"Y-m-d" }}</title>
+    <link rel="stylesheet" href="/static/style.css" type="text/css" />
+  </head>
+  <body>
+    <div id="container">
+      <div id="info">{{ invoice.user.get_profile.billing_info|linebreaks }}</div>
+      <div id="billto">Bill to:<br />
+        {{ invoice.bill_to|linebreaks }}
+      </div>
+      <table id="bill">
+        <thead>
+          <tr>
+            <td>Item</td>
+            <td>Unit Price</td>
+            <td>Quantity</td>
+            <td>Amount</td>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in invoice.items.all %}
+          <tr>
+            <td>{{ item.item.name }}</td>
+            <td>{{ item.item.price }}</td>
+            <td>{{ item.count }}</td>
+            <td class="amount">{{ item.cost }}</td>
+          </tr>
+          {% endfor %}
+          <tr>
+            <td colspan="3">Total</td>
+            <td class="total">{{ invoice.total }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

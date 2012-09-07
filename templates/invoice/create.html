@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}create an invoice{% endblock %}
+{% block content %}
+<script language="javascript">
+  form_counter = {{ form_counter }};
+  function add_item() {
+    form_counter++;
+    $("#add_item").before('<input type="text" name="form-'+form_counter+'-item_count" placeholder="#"/> \
+                           <input type="text" name="form-'+form_counter+'-item_name" placeholder="description" /> \
+                           <input type="text" name="form-'+form_counter+'-item_price" placeholder="$$" /><br />'
+                           );
+    $("#id_form-TOTAL_FORMS").attr('value', form_counter + 1);
+  }
+</script>
+
+<form action="." method="POST">
+  {% csrf_token %}
+  <label for="id_bill_to">Bill to:</label>{{ invoice_form.bill_to }}
+  <label for="id_date">Date:</label>{{ invoice_form.date }}
+  <label>Items</label>
+  {{ item_formset.management_form }}
+  {% for form in item_formset %}
+  <input type="text" name="form-{{ forloop.counter0 }}-item_count" placeholder="#" />
+  <input type="text" name="form-{{ forloop.counter0 }}-item_name" placeholder="description" />
+  <input type="text" name="form-{{ forloop.counter0 }}-item_price" placeholder="$$" /><br />
+  {% endfor %}
+  <a id="add_item" onclick="javascript:add_item();">add item</a><br />
+  <button class="btn" type="submit" id="submit_btn">create</button>
+</form>
+{% endblock %}
